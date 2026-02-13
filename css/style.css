@@ -1,0 +1,406 @@
+:root {
+    --bg-color: #0f172a;
+    --sidebar-bg: rgba(30, 41, 59, 0.7);
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-color: #38bdf8;
+    /* Light Blue */
+    --accent-hover: #0ea5e9;
+    --success-color: #4ade80;
+    --error-color: #f87171;
+    --warning-color: #facc15;
+
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    --backdrop-blur: blur(10px);
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    background-image:
+        radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+    color: var(--text-primary);
+    overflow: hidden;
+    /* Prevent scrolling, app-like feel */
+}
+
+.app-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 320px;
+    background: var(--sidebar-bg);
+    backdrop-filter: var(--backdrop-blur);
+    border-right: var(--glass-border);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    z-index: 10;
+    box-shadow: var(--glass-shadow);
+    overflow-y: auto;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.logo-area h1 {
+    font-size: 2rem;
+    margin: 0;
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-area p {
+    margin: 0.5rem 0 0;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.control-group label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Set Selector Buttons */
+.set-selector {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.25rem;
+    border-radius: 0.75rem;
+}
+
+.set-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.set-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.set-btn.active {
+    background: var(--accent-color);
+    color: #0f172a;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+/* Inputs */
+input[type="number"] {
+    background: var(--card-bg);
+    border: var(--glass-border);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+/* Set Cardinalities */
+.set-cardinality-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.set-cardinality-item {
+    background: var(--card-bg);
+    border: var(--glass-border);
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.set-cardinality-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.set-cardinality-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.set-cardinality-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.set-cardinality-body {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.set-cardinality-input {
+    flex: 1;
+}
+
+.set-cardinality-current {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.set-cardinality-item.is-match .set-cardinality-current {
+    color: var(--success-color);
+}
+
+.set-cardinality-item.is-over .set-cardinality-current {
+    color: var(--error-color);
+}
+
+/* Stats Panel */
+.stats-panel {
+    background: var(--card-bg);
+    border: var(--glass-border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--warning-color);
+    box-shadow: 0 0 10px var(--warning-color);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.status-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Buttons */
+.actions {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: #0f172a;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.btn-secondary:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+.btn-wide {
+    grid-column: 1 / -1;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.canvas-container {
+    padding: 0;
+    margin: auto;
+    position: relative;
+    width: 90%;
+    /* Enforce 4:3 Aspect Ratio to match SVG viewBox 0 0 800 600 */
+    aspect-ratio: 4/3;
+    max-height: 90vh;
+    max-width: 120vh;
+    /* (90vh * 4/3) */
+    display: block;
+    /* Remove flex here, let margin:auto center it */
+}
+
+#venn-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+}
+
+.overlay-inputs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Let clicks pass through to SVG elements if not on input */
+}
+
+/* Ensure inputs themselves are clickable */
+.region-input-wrapper {
+    pointer-events: auto;
+}
+
+/* SVG Elements */
+.venn-circle {
+    fill: rgba(255, 255, 255, 0.05);
+    stroke: var(--text-primary);
+    stroke-width: 2;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.venn-circle:hover {
+    fill: rgba(255, 255, 255, 0.1);
+    stroke: var(--accent-color);
+}
+
+.venn-label {
+    fill: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    pointer-events: none;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Dynamic Inputs Overlay */
+.region-input-wrapper {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 60px;
+}
+
+.region-input {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    text-align: center;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 4px;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s;
+}
+
+.region-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+    outline: none;
+    transform: scale(1.1);
+}
