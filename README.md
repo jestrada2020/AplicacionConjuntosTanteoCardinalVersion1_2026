@@ -1,0 +1,1 @@
+# AplicacionConjuntosTanteoCardinalVersion1_2026
